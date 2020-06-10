@@ -1,1 +1,61 @@
-﻿<h2>Insert New Employee</h2>
+﻿@model Employee
+<h2>Thêm một nhân viên mới</h2>
+<hr />
+<h3 class="ThongBao">@ViewBag.ThongBao</h3>
+
+@* Dùng HTML Helper BeginForm để hiển thị phần tử <form>
+    Tham số đầu tiên là tên của Action sẽ sử lý form (chính
+    là action InsertAsync Post), thư hai là tên của
+    controller, tham số thứ 3 cho biết phương thức gửi là Post
+    Nội dung form được đính kèm bên trong câu lệnh @using.
+    Để đảm bảo rằng thẻ </ form> cũng được xuất ra sau khối.*@
+@using (Html.BeginForm("Insert", "Employee", FormMethod.Post, new { @class = "needs-validation", novalidate = "novalidate" }))
+{
+
+    <div class="form-row">
+        <div class="col">
+            @Html.LabelFor(m => m.LastName)
+            @Html.TextBoxFor(m => m.LastName, new { @class = "form-control", placeholder = "Điền họ", required = "required", maxlength = "20" })
+            @*@Html.ValidationMessageFor(m => m.LastName, null)*@
+            <div class="invalid-feedback">
+                Chưa cung cấp họ nhân viên
+            </div>
+
+        </div>
+        <div class="col">
+            @Html.LabelFor(m => m.MiddleName)
+            @Html.TextBoxFor(m => m.MiddleName, new { @class = "form-control", placeholder = "Điền họ lót", maxlength = "40" })
+
+        </div>
+        <div class="col">
+            @Html.LabelFor(m => m.FirstName)
+            @Html.TextBoxFor(m => m.FirstName, new { @class = "form-control", placeholder = "Điền tên", required = "required", maxlength = "20" })
+            <div class="invalid-feedback">
+                Chưa cung cấp tên nhân viên
+            </div>
+        </div>
+    </div>
+    <br />
+    <button class="btn btn-primary" type="submit">Thêm</button>
+}
+
+<script>
+    // JavaScript for disabling form submissions if there are invalid fields
+    (function () {
+        'use strict';
+        window.addEventListener('load', function () {
+            // Fetch all the forms we want to apply custom Bootstrap validation styles to
+            var forms = document.getElementsByClassName('needs-validation');
+            // Loop over them and prevent submission
+            var validation = Array.prototype.filter.call(forms, function (form) {
+                form.addEventListener('submit', function (event) {
+                    if (form.checkValidity() === false) {
+                        event.preventDefault();
+                        event.stopPropagation();
+                    }
+                    form.classList.add('was-validated');
+                }, false);
+            });
+        }, false);
+    })();
+</script>

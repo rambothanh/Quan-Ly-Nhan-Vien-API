@@ -1,87 +1,112 @@
 ﻿@model List<QuanLyNhanVienClient.MVC.Models.Employee>
-
-<table id="table_id" class="cell-border compact stripe order-column">
+@using System.Text.Json;
+<table id="table_id" class="table table-dark table-striped table-hover table-sm table-bordered" style="width:100%">
     <thead>
         <tr>
-            <th>Mã nhân viên</th>
-            <th>Tên</th>
+            <th>ID</th>
             <th>Họ</th>
             <th>Họ lót</th>
+            <th>Tên</th>
             <th>Phone</th>
             <th>Chức vụ</th>
+            <th>Hành động</th>
         </tr>
     </thead>
-
     <tfoot>
         <tr>
             <th>ID</th>
-            <th>Tên</th>
             <th>Họ</th>
             <th>Họ lót</th>
+            <th>Tên</th>
             <th>Phone</th>
             <th>Chức vụ</th>
+            <th>Hành động</th>
         </tr>
     </tfoot>
 </table>
 <hr />
-@*<table id="table_id2"
-           data-toggle="table"
-           data-pagination="true"
-           data-search="true">
-
-        <thead>
-            <tr>
-                <th data-field="idEmployees" data-sortable="true">IdEmployees</th>
-                <th data-field="firstName" data-sortable="true">FirstName</th>
-                <th data-field="lastName" data-sortable="true">LastName</th>
-
-              <th data-field="Emp ID" data-sortable="true">Emp ID</th>
-                    <th data-field="Name Prefix" data-sortable="true">Name Prefix</th>
-                    <th data-field="First Name" data-sortable="true">First Name</th>
-                    <th data-field="Middle Initial" data-sortable="true">Middle Initial</th>
-                    <th data-field="Last Name" data-sortable="true">Last Name</th>
-                    <th data-field="Gender" data-sortable="true">Gender</th>
-                    <th data-field="E Mail" data-sortable="false">E Mail</th>
-            </tr>
-        </thead>
-    </table>*@
 <h3 class="message"></h3>
 @section scripts{
-    @*Dùng Bootstrap-table*@
-    @*<script src="https://code.jquery.com/jquery-3.3.1.min.js" integrity="sha256-FgpCb/KJQlLNfOu91ta32o/NMZxltwRo8QtmkMRdAu8=" crossorigin="anonymous"></script>
-        <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.7/umd/popper.min.js" integrity="sha384-UO2eT0CpHqdSJQ6hJty5KVphtPhzWj9WO1clHTMGa3JDZwrnQq4sF86dIHNDz0W1" crossorigin="anonymous"></script>
-        <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/js/bootstrap.min.js" integrity="sha384-JjSmVgyd0p3pXB1rRibZUAYoIIy6OrQ6VrjIEaFf/nJGzIxFDsf4x0xIM+B07jRM" crossorigin="anonymous"></script>
-        <script src="https://unpkg.com/bootstrap-table@1.16.0/dist/bootstrap-table.min.js"></script>
-        <script>
-                var data =@Html.Raw(JsonConvert.SerializeObject(Model));
-                $('table_id2').bootstrapTable({ data: @ViewBag.datatest })
-        </script>*@
-
-    @*Dùng Datatable*@
-    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.1.0/jquery.min.js"></script>
-    <script type="text/javascript" src="https://cdn.datatables.net/1.10.16/js/jquery.dataTables.min.js"></script>
+    <script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/pdfmake/0.1.36/pdfmake.min.js"></script>
+    <script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/pdfmake/0.1.36/vfs_fonts.js"></script>
     <script>
             $(document).ready(function () {
                 //Dùng JsonConvert.SerializeObject trong Newtonsoft.Json
                 //để chuyển đối tượng List < Employee > sang Json
                 //Dùng Html.Raw để tránh việc mã hoá Json thành html
-                var json =@Html.Raw(JsonConvert.SerializeObject(Model));
-                $('#table_id').DataTable({
-                    data: json,
-                    columns: [
-                        { data: 'IdEmployees' },
-                        { data: 'FirstName' },
-                        { data: 'LastName' },
-                        { data: 'MiddleName' },
-                        { data: 'Phone' },
-                        { data: 'Title' }
+                //Chuyển sang dùng JsonSerializer.Serialize System.Text.Json
+                //Cũng có tác dụng tương tự, nhưng mặc định sẵn
+                var json =@Html.Raw(JsonSerializer.Serialize(Model));
+                var table = $('#table_id').DataTable({
+                    //Data đưa vào là một chuỗi json
+                    "data": json,
+
+                    //Sắp xếp các thành phần:
+                    "dom": 'Bfrtilp',
+
+                    //Thêm các button sẵn có và tuỳ chỉnh
+                    "buttons": [
+                        //Tạo một button tuỳ chỉnh:
+                        {
+                            text: '<i class="fas fa-plus"></i> Thêm',
+                            className: 'btn btn-success',
+                            //Điều hướng đến trang Insert
+                            action: function (dt) {
+                                location.href = "employee/insert" ;
+                            }
+                        },
+
+                        //Các button sẵn có:
+                        //'copy',
+                        'excel',
+                        'pdf',
+                        'print'
                     ],
-                   
+
+                    "responsive": true,
+
+                    //Định nghĩa các data trong từng cột
+                    "columns": [
+                        { "data": 'IdEmployees' },
+                        { "data": 'LastName' },
+                        { "data": 'MiddleName' },
+                        { "data": 'FirstName' },
+                        { "data": 'Phone' },
+                        { "data": 'Title'  },
+                        {
+                            "data": null,
+                            "render": {
+                                //"_": ,
+                                //"filter": "",
+                                "display": function (data, type, row, meta) {
+                                    //return '<i class="far fa-trash-alt"></i>';
+                                    return '<a class="btn btn-info btn-sm" href="employee/info/' + data.IdEmployees + '"><i class="fas fa-info icon-large"></i> Chi tiết</a>'+
+                                        '<a class="btn btn-warning btn-sm" href="employee/update/' + data.IdEmployees + '"><i class="far fa-edit icon-large"></i> Sửa</a>'+
+                                        '<a class="btn btn-danger btn-sm" href="employee/delete/' + data.IdEmployees + '"><i class="far fa-trash-alt icon-large"></i> Xoá</a>';
+                                }
+                            }
+
+                        }
+                        //{ data: null, "defaultContent": "<button>Sửa</button>"}
+                    ],
+
+                    //Phân trang thành 3 trang
                     //"pageLength": 3,
-                    "language": {
-                        "url": "//cdn.datatables.net/plug-ins/9dcbecd42ad/i18n/Vietnamese.json"
-                    }
+
+                    //Ngôn ngữ các Dom
+                    "language": { "url": "//cdn.datatables.net/plug-ins/9dcbecd42ad/i18n/Vietnamese.json" },
+
+                    //Định nghĩa các cột
+                    "columnDefs": [{
+
+                        //Cột định nghĩa -1 là cột cuối cùng
+                        "targets": -1,
+
+                        //loại bỏ sort
+                        "orderable": false
+                    }]
                 });
+
             });
     </script>
 }

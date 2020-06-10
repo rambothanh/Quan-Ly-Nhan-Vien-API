@@ -3,13 +3,15 @@
 <head>
     <meta name="viewport" content="width=device-width" />
     <title>Quản lý nhân viên</title>
-    @*Dùng Bootstrap-Table*@
-    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css" integrity="sha384-ggOyR0iXCbMQv3Xipma34MD+dH/1fQ784/j6cY/iJTQUOhcWr7x9JvoRxT2MZw1T" crossorigin="anonymous">
-    <link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.6.3/css/all.css" integrity="sha384-UHRtZLI+pbxtHCWp1t77Bi1L4ZtiqrqD80Kn4Z8NTSRyMA2Fd33n5dQ8lWUE00s/" crossorigin="anonymous">
-    <link rel="stylesheet" href="https://unpkg.com/bootstrap-table@1.16.0/dist/bootstrap-table.min.css">
+    <link rel="stylesheet" type="text/css" href="https://use.fontawesome.com/releases/v5.6.3/css/all.css" integrity="sha384-UHRtZLI+pbxtHCWp1t77Bi1L4ZtiqrqD80Kn4Z8NTSRyMA2Fd33n5dQ8lWUE00s/" crossorigin="anonymous">
+    <link rel="stylesheet" type="text/css" href="https://cdn.datatables.net/v/bs4-4.1.1/jq-3.3.1/jszip-2.5.0/dt-1.10.21/b-1.6.2/b-colvis-1.6.2/b-flash-1.6.2/b-html5-1.6.2/b-print-1.6.2/datatables.min.css" />
+    <script src="https://cdn.jsdelivr.net/npm/popper.js@1.16.0/dist/umd/popper.min.js" integrity="sha384-Q6E9RHvbIyZFJoft+2mJbHaEWldlvI9IOYy5n3zV9zzTtmI3UksdQRVvoxMfooAo" crossorigin="anonymous"></script>
+    @*Bao tồm Datatable, bootstrap4, jquery 3
+        Nếu CDN có trục trặt thì dùng local file
+        và ngược lại*@
+    @*<script type="text/javascript" src="https://cdn.datatables.net/v/bs4-4.1.1/jq-3.3.1/jszip-2.5.0/dt-1.10.21/b-1.6.2/b-colvis-1.6.2/b-flash-1.6.2/b-html5-1.6.2/b-print-1.6.2/datatables.min.js"></script>*@
+    <script type="text/javascript" src="~/Scripts/datatables.min.js"></script>
 
-    @*Dùng datatable*@
-    <link rel="stylesheet" type="text/css" href="https://cdn.datatables.net/1.10.16/css/jquery.dataTables.min.css" />
 
 
 
@@ -26,13 +28,10 @@
     <hr />
     @if (User.Identity.IsAuthenticated)
     {
-        <h2>You are signed in as @User.Identity.Name</h2>
-        @using (Html.BeginForm("SignOut", "Security", FormMethod.Post))
-         {
-                <button type="submit">Sign Out</button>
-         }
-    }
-
+<h2>You are signed in as @User.Identity.Name</h2>
+                @using (Html.BeginForm("SignOut", "Security", FormMethod.Post))
+                {
+<button type="submit">Sign Out</button>}}
 </body>
-@RenderSection("scripts",required:false)
+@RenderSection("scripts", required: false)
 </html>
