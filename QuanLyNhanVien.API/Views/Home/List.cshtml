@@ -1,0 +1,55 @@
+﻿
+<table id="table_id" class="cell-border compact stripe order-column">
+    <thead>
+        <tr>
+            <th>Mã nhân viên</th>
+            <th>Tên</th>
+            <th>Họ</th>
+            <th>Họ lót</th>
+            <th>Phone</th>
+            <th>Chức vụ</th>
+            @*<th colspan="2">Actions</th>*@
+        </tr>
+    </thead>
+
+    <tfoot>
+        <tr>
+            <th>ID</th>
+            <th>Tên</th>
+            <th>Họ</th>
+            <th>Họ lót</th>
+            <th>Phone</th>
+            <th>Chức vụ</th>
+            @*<th colspan="2">Actions</th>*@
+        </tr>
+    </tfoot>
+</table>
+<h3 class="message"></h3>
+@section scripts{
+    <script>
+        $(document).ready(function () {
+            //Dùng JsonConvert.SerializeObject trong Newtonsoft.Json
+            //để chuyển đối tượng List < Employee > sang Json
+            //Dùng Html.Raw để tránh việc mã hoá Json thành html
+            
+            var json =@Html.Raw(JsonConvert.SerializeObject(Model));
+            $('#table_id').DataTable({
+                data: json,
+                columns: [
+                    { data: 'IdEmployees' },
+                    { data: 'FirstName' },
+                    { data: 'LastName' },
+                    { data: 'MiddleName' },
+                    { data: 'Phone' },
+                    { data: 'Title' }
+                ],
+                "pageLength": 3,
+                responsive: true,
+                columnDefs: [
+                    { targets: [-1, -3], className: 'dt-body-right' }
+                ]
+            });
+        });
+
+    </script>
+}

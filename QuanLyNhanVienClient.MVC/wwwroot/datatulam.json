@@ -1,0 +1,66 @@
+﻿[
+  {
+    "id": "1",
+    "name": "Thành",
+    "position": "Kế toán",
+    "salary": "10000000",
+    "start_day": "2020/08/13",
+    "office": "Biên Hoà",
+    "age": "35"
+  },
+  {
+    "id": "2",
+    "name": "Tiến",
+    "position": "Ngân Hàng",
+    "salary": "12000000",
+    "start_day": "2020/08/17",
+    "office": "Long Xuyên",
+    "age": "33"
+  },
+  {
+    "id": "5",
+    "name": "Tiến",
+    "position": "Ngân Hàng",
+    "salary": "12000000",
+    "start_day": "2020/08/17",
+    "office": "Long Xuyên",
+    "age": "33"
+  },
+  {
+    "id": "3",
+    "name": "Tiến",
+    "position": "Ngân Hàng",
+    "salary": "12000000",
+    "start_day": "2020/08/17",
+    "office": "Long Xuyên",
+    "age": "33"
+  },
+  {
+    "id": "4",
+    "name": "Tiến",
+    "position": "Ngân Hàng",
+    "salary": "12000000",
+    "start_day": "2020/08/17",
+    "office": "Long Xuyên",
+    "age": "33"
+  },
+  {
+    "id": "6",
+    "name": "Tiến",
+    "position": "Ngân Hàng",
+    "salary": "12000000",
+    "start_day": "2020/08/17",
+    "office": "Long Xuyên",
+    "age": "33"
+  },
+  {
+    "id": "2",
+    "name": "Tiến",
+    "position": "Ngân Hàng",
+    "salary": "12000000",
+    "start_day": "2020/08/17",
+    "office": "Long Xuyên",
+    "age": "33"
+  }
+
+]
