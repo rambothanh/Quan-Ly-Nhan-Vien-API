@@ -1,45 +1,115 @@
 ﻿@model Employee
-<h2>Thêm một nhân viên mới</h2>
-<hr />
-<h3 class="ThongBao">@ViewBag.ThongBao</h3>
+    <div class="container">
+        <h2>Thêm nhân viên mới</h2>
 
-@* Dùng HTML Helper BeginForm để hiển thị phần tử <form>
-    Tham số đầu tiên là tên của Action sẽ sử lý form (chính
-    là action InsertAsync Post), thư hai là tên của
-    controller, tham số thứ 3 cho biết phương thức gửi là Post
-    Nội dung form được đính kèm bên trong câu lệnh @using.
-    Để đảm bảo rằng thẻ </ form> cũng được xuất ra sau khối.*@
-@using (Html.BeginForm("Insert", "Employee", FormMethod.Post, new { @class = "needs-validation", novalidate = "novalidate" }))
-{
+        @* Dùng HTML Helper BeginForm để hiển thị phần tử <form>
+        Tham số đầu tiên là tên của Action sẽ sử lý form (chính
+        là action InsertAsync Post), thư hai là tên của
+        controller, tham số thứ 3 cho biết phương thức gửi là Post
+        Nội dung form được đính kèm bên trong câu lệnh @using.
+        Để đảm bảo rằng thẻ </ form> cũng được xuất ra sau khối.*@
+        @using (Html.BeginForm("Insert", "Employee", FormMethod.Post, new { @class = "needs-validation", novalidate = "novalidate" }))
+        {
 
-    <div class="form-row">
-        <div class="col">
-            @Html.LabelFor(m => m.LastName)
-            @Html.TextBoxFor(m => m.LastName, new { @class = "form-control", placeholder = "Điền họ", required = "required", maxlength = "20" })
-            @*@Html.ValidationMessageFor(m => m.LastName, null)*@
-            <div class="invalid-feedback">
-                Chưa cung cấp họ nhân viên
+            <div class="form-row">
+                <div class="col-auto">
+                    @Html.LabelFor(m => m.TitleOfCourtesy):
+                    @Html.TextBoxFor(m => m.TitleOfCourtesy, new { @class = "form-control", placeholder = "Mr., Ms.", maxlength = "10" })
+                </div>
+                <div class="col">
+                    @Html.LabelFor(m => m.LastName):
+                    @Html.TextBoxFor(m => m.LastName, new { @class = "form-control", placeholder = "Điền họ", required = "required", maxlength = "20" })
+                    @*@Html.ValidationMessageFor(m => m.LastName, null)*@
+                    <div class="invalid-feedback">
+                        Chưa cung cấp họ nhân viên
+                    </div>
+                </div>
+                <div class="col">
+                    @Html.LabelFor(m => m.MiddleName):
+                    @Html.TextBoxFor(m => m.MiddleName, new { @class = "form-control", placeholder = "Điền họ lót", maxlength = "40" })
+                </div>
+                <div class="col">
+                    @Html.LabelFor(m => m.FirstName):
+                    @Html.TextBoxFor(m => m.FirstName, new { @class = "form-control", placeholder = "Điền tên", required = "required", maxlength = "20" })
+                    <div class="invalid-feedback">
+                        Chưa cung cấp tên nhân viên
+                    </div>
+                </div>
+            </div>
+            <div class="form-row">
+                <div class="col">
+                    @Html.LabelFor(m => m.Phone):
+                    @Html.TextBoxFor(m => m.Phone, new { @class = "form-control", placeholder = "Điền địa chỉ thường trú", maxlength = "80" })
+                </div>
+                @*Ghi nhở phải để type = "date" nếu không thì khi để trống model không tự động chuyển sang null của date*@
+                <div class="col">
+                    @Html.LabelFor(m => m.BirthDay):
+                    @Html.TextBoxFor(m => m.BirthDay, new { @class = "form-control", type = "date", placeholder = "Điền địa chỉ thường trú", maxlength = "80" })
+                    @Html.ValidationMessageFor(m => m.LastName, null)
+                </div>
+                <div class="col">
+                    @Html.LabelFor(m => m.HireDate):
+                    @Html.TextBoxFor(m => m.HireDate, new { @class = "form-control", type = "date", placeholder = "Điền địa chỉ thường trú", maxlength = "80" })
+                </div>
+            </div>
+            <div>
+                @Html.LabelFor(m => m.Address):
+                @Html.TextBoxFor(m => m.Address, new { @class = "form-control", placeholder = "Điền địa chỉ thường trú", maxlength = "80" })
+            </div>
+            <div class="form-row">
+                <div class="col">
+                    @Html.LabelFor(m => m.Country):
+                    @Html.TextBoxFor(m => m.Country, new { @class = "form-control", placeholder = "Điền quốc tịch", maxlength = "15" })
+                </div>
+                <div class="col">
+                    @Html.LabelFor(m => m.CityProvince):
+                    @Html.TextBoxFor(m => m.CityProvince, new { @class = "form-control", placeholder = "Điền tỉnh/thành", maxlength = "45" })
+                </div>
+                <div class="col">
+                    @Html.LabelFor(m => m.CityDistrict):
+                    @Html.TextBoxFor(m => m.CityDistrict, new { @class = "form-control", placeholder = "Điền Quận/Huyện/TP", maxlength = "45" })
+                    <div class="invalid-feedback">
+                        Chưa cung cấp tên nhân viên
+                    </div>
+                </div>
+                <div class="col">
+                    @Html.LabelFor(m => m.PostalCode):
+                    @Html.TextBoxFor(m => m.PostalCode, new { @class = "form-control", placeholder = "Điền Mã bưu chính", maxlength = "45" })
+                    <div class="invalid-feedback">
+                        Chưa cung cấp tên nhân viên
+                    </div>
+                </div>
+            </div>
+            <div>
+                @Html.LabelFor(m => m.PhotoPath):
+                @Html.TextBoxFor(m => m.PhotoPath, new { @class = "form-control", placeholder = "Chọn ảnh", maxlength = "80" })
+            </div>
+            <div>
+                @Html.LabelFor(m => m.Notes):
+                @Html.TextAreaFor(m => m.Notes, 5, 40, new { @class = "form-control", placeholder = "Thông tin thêm", maxlength = "80" })
+            </div>
+            <br />
+            <div id="alertsuccess" class="alert alert-success">
+                <strong>@ViewBag.alertsuccess</strong>
+            </div>
+            <div id="alertfail" class="alert alert-danger">
+                <strong>@ViewBag.alertfail</strong>
             </div>
 
-        </div>
-        <div class="col">
-            @Html.LabelFor(m => m.MiddleName)
-            @Html.TextBoxFor(m => m.MiddleName, new { @class = "form-control", placeholder = "Điền họ lót", maxlength = "40" })
+            <button id="bLuu" type="submit" class="btn btn-primary"><i class="far fa-save"></i> Lưu</button>
+            <a class="btn btn-secondary" href="/"><i class="fas fa-list"></i> Trở về danh sách</a>
 
-        </div>
-        <div class="col">
-            @Html.LabelFor(m => m.FirstName)
-            @Html.TextBoxFor(m => m.FirstName, new { @class = "form-control", placeholder = "Điền tên", required = "required", maxlength = "20" })
-            <div class="invalid-feedback">
-                Chưa cung cấp tên nhân viên
-            </div>
-        </div>
+        }
     </div>
-    <br />
-    <button class="btn btn-primary" type="submit">Thêm</button>
-}
 
 <script>
+
+    //Ẩn hiện thông báo
+    var alertsuccess = "@Html.Raw(ViewBag.alertsuccess)";
+    var alertfail = "@Html.Raw(ViewBag.alertfail)";
+    if (alertsuccess == "") { $("#alertsuccess").hide(); }
+    if (alertfail == "") { $("#alertfail").hide(); }
+
     // JavaScript for disabling form submissions if there are invalid fields
     (function () {
         'use strict';

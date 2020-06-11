@@ -26,6 +26,7 @@ namespace QuanLyNhanVienClient.MVC.Controllers
         }
 
         //Submit Form sẽ thực hiện action Insert này
+
         [HttpPost]
         public async Task<IActionResult> InsertAsync(Employee modelEmployee)
         {
@@ -35,7 +36,7 @@ namespace QuanLyNhanVienClient.MVC.Controllers
                 string stringJsonData = JsonSerializer.Serialize(modelEmployee);
                 //StringContent Cung cấp nội dung HTTP dựa trên một chuỗi.
                 //StringContent có 3 phương thức khởi tạo
-                //Dùng phương thức có 3 tham số: 
+                //Dùng phương thức có 3 tham số:
                 //Tham số thứ 1 là chuỗi để khởi tạo StringContent
                 //Tham số thứ 2 để thực hiện mã hoá UTF8
                 //Tham số thứ 3 chỉ định chuỗi mediaType
@@ -48,42 +49,44 @@ namespace QuanLyNhanVienClient.MVC.Controllers
                 //của phản hồi nằm trong phạm vi200–299, ngoài ra nó trả về false
                 if (response.IsSuccessStatusCode)
                 {
-                    ViewBag.ThongBao = "Thêm nhân viên mới thành công";
+                    ViewBag.alertsuccess = "Thêm nhân viên mới thành công";
                 }
                 else
                 {
-                    ViewBag.ThongBao = "Có lỗi trong việc gọi API";
+                    ViewBag.alertfail = "Có lỗi trong việc gọi API";
                 }
-               
             }
             return View(modelEmployee);
-
         }
 
         public async Task<IActionResult> ListAsync()
         {
-            HttpResponseMessage response = await client.GetAsync(employeesApiUrl);
-
-            //Phương thức ReadAsStringAsync() đọc chuỗi Json
-            //từ đối tượng dạng HttpResponseMessage
-            string stringJsonData = await response.Content.ReadAsStringAsync();
-            //ViewBag.datatest = stringData;
-
-            //Để chuyển đổi nội dung Json sang dạng List<Employee>
-            //Dùng phương thức Deserialize() của lớp JsonSerializer
-            //Deserialize() có tham số thứ nhất là chuỗi Json
-            //tham số thứ 2 là cấu hình, chuẩn bị cấu hình:
-            var options = new JsonSerializerOptions
+            try
             {
-                //phân biệt chữ hoa chữ thường
-                PropertyNameCaseInsensitive = true
-            };
+                HttpResponseMessage response = await client.GetAsync(employeesApiUrl);
 
-            //Sử dụng Deserialize()
-            List<Employee> data = JsonSerializer.Deserialize<List<Employee>>(stringJsonData, options);
-            return View(data);
-            //ViewBag.stringData = stringData;
-            //return View();
+                //Phương thức ReadAsStringAsync() đọc chuỗi Json
+                //từ đối tượng dạng HttpResponseMessage
+                string stringJsonData = await response.Content.ReadAsStringAsync();
+                //ViewBag.datatest = stringData;
+
+                //Để chuyển đổi nội dung Json sang dạng List<Employee>
+                //Dùng phương thức Deserialize() của lớp JsonSerializer
+                //Deserialize() có tham số thứ nhất là chuỗi Json
+                //tham số thứ 2 là cấu hình, chuẩn bị cấu hình:
+                var options = new JsonSerializerOptions
+                {
+                    //phân biệt chữ hoa chữ thường
+                    PropertyNameCaseInsensitive = true
+                };
+
+                //Sử dụng Deserialize()
+                List<Employee> data = JsonSerializer.Deserialize<List<Employee>>(stringJsonData, options);
+                return View(data);
+                //ViewBag.stringData = stringData;
+                //return View();
+            }
+            catch { return View(); };
         }
     }
 }

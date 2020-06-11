@@ -49,12 +49,12 @@ namespace QuanLyNhanVienClient.MVC.Models
         [StringLength(80, ErrorMessage = "Địa chỉ không quá 80 ký tự")]
         public string Address { get; set; }
 
-        [Display(Name = "Tỉnh/Thành phố")]
-        [StringLength(45, ErrorMessage = "Tỉnh/Thành phố không quá 45 ký tự")]
+        [Display(Name = "Tỉnh/Thành")]
+        [StringLength(45, ErrorMessage = "Tỉnh/Thành không quá 45 ký tự")]
         public string CityDistrict { get; set; }
 
-        [Display(Name = "Tỉnh/Thành phố")]
-        [StringLength(45, ErrorMessage = "Huyện/Thành phố không quá 45 ký tự")]
+        [Display(Name = "Quận/Huyện/TP")]
+        [StringLength(45, ErrorMessage = "Quận/Huyện/TP không quá 45 ký tự")]
         public string CityProvince { get; set; }
 
         [Display(Name = "Mã bưu chính")]
@@ -65,7 +65,7 @@ namespace QuanLyNhanVienClient.MVC.Models
         [StringLength(10, ErrorMessage = "Quốc tịch không quá 15 ký tự")]
         public string Country { get; set; }
 
-        [Display(Name = "Đường dẫn ảnh")]
+        [Display(Name = "Ảnh đại diện")]
         [StringLength(255, ErrorMessage = "Đường dẫn ảnh không quá 255 ký tự")]
         public string PhotoPath { get; set; }
 

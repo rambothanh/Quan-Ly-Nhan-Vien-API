@@ -1,7 +1,7 @@
 ﻿<!DOCTYPE html>
 <html>
 <head>
-    <meta name="viewport" content="width=device-width" />
+    <meta name="viewport" content="width=device-width, initial-scale=1">
     <title>Quản lý nhân viên</title>
     <link rel="stylesheet" type="text/css" href="https://use.fontawesome.com/releases/v5.6.3/css/all.css" integrity="sha384-UHRtZLI+pbxtHCWp1t77Bi1L4ZtiqrqD80Kn4Z8NTSRyMA2Fd33n5dQ8lWUE00s/" crossorigin="anonymous">
     <link rel="stylesheet" type="text/css" href="https://cdn.datatables.net/v/bs4-4.1.1/jq-3.3.1/jszip-2.5.0/dt-1.10.21/b-1.6.2/b-colvis-1.6.2/b-flash-1.6.2/b-html5-1.6.2/b-print-1.6.2/datatables.min.css" />
@@ -17,15 +17,12 @@
 
 </head>
 <body>
-    <h1>
-        Quản lý nhân viên
-    </h1>
+    <div class="container"><h1> Quản lý nhân viên </h1></div>
     <hr />
-    <div>
-        @RenderBody()
-    </div>
+    <div class="container"> @RenderBody() </div>
     <br />
     <hr />
+
     @if (User.Identity.IsAuthenticated)
     {
 <h2>You are signed in as @User.Identity.Name</h2>
