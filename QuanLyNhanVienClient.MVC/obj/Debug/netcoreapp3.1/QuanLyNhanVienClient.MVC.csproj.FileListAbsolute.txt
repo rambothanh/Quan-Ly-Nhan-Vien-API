@@ -106,3 +106,4 @@ F:\Document of Thanh\DotNetCore\CuaThanh\QuanLyNhanVienAPI\QuanLyNhanVien.API\Qu
 F:\Document of Thanh\DotNetCore\CuaThanh\QuanLyNhanVienAPI\QuanLyNhanVien.API\QuanLyNhanVienClient.MVC\obj\Debug\netcoreapp3.1\Razor\Views\Shared\_Layout.cshtml.g.cs
 F:\Document of Thanh\DotNetCore\CuaThanh\QuanLyNhanVienAPI\QuanLyNhanVien.API\QuanLyNhanVienClient.MVC\obj\Debug\netcoreapp3.1\QuanLyNhanVienClient.MVC.csproj.CoreCompileInputs.cache
 F:\Document of Thanh\DotNetCore\CuaThanh\QuanLyNhanVienAPI\QuanLyNhanVien.API\QuanLyNhanVienClient.MVC\obj\Debug\netcoreapp3.1\QuanLyNhanVienClient.MVC.MvcApplicationPartsAssemblyInfo.cache
+F:\Document of Thanh\DotNetCore\CuaThanh\QuanLyNhanVienAPI\QuanLyNhanVien.API\QuanLyNhanVienClient.MVC\obj\Debug\netcoreapp3.1\Razor\Views\Employee\Update.cshtml.g.cs

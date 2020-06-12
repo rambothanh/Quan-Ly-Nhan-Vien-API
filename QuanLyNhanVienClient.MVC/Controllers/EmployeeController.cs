@@ -19,14 +19,56 @@ namespace QuanLyNhanVienClient.MVC.Controllers
             this.employeesApiUrl = config.GetValue<string>("AppSettings:EmployeesApiUrl");
         }
 
+        //Click vào nút sửa ở từng nhân viên sẽ chuyển đến trang Update
+        // /employee/update/{id}
+        [HttpGet]
+        public async Task<IActionResult> UpdateAsync(int id)
+        {
+            //Thực hiện gọi API
+            HttpResponseMessage reponse = await client.GetAsync($"{employeesApiUrl}/{id}");
+            //Đọc nội dung trả về chuyển thành chuỗi JSon
+            string stringJsonData = await reponse.Content.ReadAsStringAsync();
+            //Chuyển chuỗi Json thành đối tượng employee
+            var op = new JsonSerializerOptions
+            {
+                PropertyNameCaseInsensitive = true
+            };
+            Employee modelEmployee = JsonSerializer.Deserialize<Employee>(stringJsonData, op);
+            return View(modelEmployee);
+        }
+
+        //Click nút Lưu ở trang chỉnh sửa
+        [HttpPost]
+        public async Task<IActionResult> UpdateAsync(Employee modelEmployee)
+        {
+            //Kiểm tra xác thực của model một lần nữa bằng ModelState
+            if (ModelState.IsValid)
+            {
+                //Chuyển model thành chuỗi json
+                string stringJsonData = JsonSerializer.Serialize(modelEmployee);
+                //Chuẩn bị nội dung HTTP
+                var httpContent = new StringContent(stringJsonData, System.Text.Encoding.UTF8, "application/json");
+                HttpResponseMessage response = await client.PutAsync($"{employeesApiUrl}/{modelEmployee.IdEmployees}", httpContent);
+                if (response.IsSuccessStatusCode)
+                {
+                    ViewBag.alertsuccess = "Đã lưu chỉnh sửa";
+                }
+                else
+                {
+                    ViewBag.alertfail = "Có lỗi trong việc gọi API";
+                }
+
+            }
+            return View(modelEmployee);
+        }
         //Click vào nút thêm ở trang danh sách nhân viên sẽ chuyển để trang Insert
+        [HttpGet]
         public IActionResult Insert()
         {
             return View();
         }
 
         //Submit Form sẽ thực hiện action Insert này
-
         [HttpPost]
         public async Task<IActionResult> InsertAsync(Employee modelEmployee)
         {
@@ -59,6 +101,7 @@ namespace QuanLyNhanVienClient.MVC.Controllers
             return View(modelEmployee);
         }
 
+        [HttpGet]
         public async Task<IActionResult> ListAsync()
         {
             try

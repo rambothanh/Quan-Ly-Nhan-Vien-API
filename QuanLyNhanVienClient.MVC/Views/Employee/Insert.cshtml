@@ -38,6 +38,10 @@
             </div>
             <div class="form-row">
                 <div class="col">
+                    @Html.LabelFor(m => m.Title):
+                    @Html.TextBoxFor(m => m.Title, new { @class = "form-control", placeholder = "Điền chức vụ", maxlength = "45" })
+                </div>
+                <div class="col">
                     @Html.LabelFor(m => m.Phone):
                     @Html.TextBoxFor(m => m.Phone, new { @class = "form-control", placeholder = "Điền địa chỉ thường trú", maxlength = "80" })
                 </div>
@@ -74,7 +78,7 @@
                 </div>
                 <div class="col">
                     @Html.LabelFor(m => m.PostalCode):
-                    @Html.TextBoxFor(m => m.PostalCode, new { @class = "form-control", placeholder = "Điền Mã bưu chính", maxlength = "45" })
+                    @Html.TextBoxFor(m => m.PostalCode, new { @class = "form-control", placeholder = "Điền Mã bưu chính", maxlength = "10" })
                     <div class="invalid-feedback">
                         Chưa cung cấp tên nhân viên
                     </div>
@@ -110,20 +114,30 @@
     if (alertsuccess == "") { $("#alertsuccess").hide(); }
     if (alertfail == "") { $("#alertfail").hide(); }
 
-    // JavaScript for disabling form submissions if there are invalid fields
+    // Ngăn chặn sự kiện submit của tất cả các form khi chưa được xác thực (invalid)
     (function () {
+        //Bật chế độ nghiêm ngặt cú pháp
         'use strict';
+        //Khi các tài nguyên đã được nạp hoàn tất (lắng nghe sự kiện load)
         window.addEventListener('load', function () {
-            // Fetch all the forms we want to apply custom Bootstrap validation styles to
+            // Tìm nạp tất cả các biểu mẫu muốn áp dụng các kiểu xác thực Bootstrap tùy chỉnh cho
             var forms = document.getElementsByClassName('needs-validation');
             // Loop over them and prevent submission
             var validation = Array.prototype.filter.call(forms, function (form) {
+                //Trong mỗi form nằm trong forms Lắng nghe sự kiện submit form của nó
                 form.addEventListener('submit', function (event) {
+                    //Nếu Form chưa được xác thực
                     if (form.checkValidity() === false) {
+                        //preventDefault: huỷ bỏ sự kiện, cụ thể ở đây
+                        //ngăn không cho submit
                         event.preventDefault();
+                        //Ngăn luôn việc lan truyền sự kiện
                         event.stopPropagation();
                     }
+                    //Thêm class was-validated của bootstrap để hiện thị các xác thực
+                    //cho người dùng biết
                     form.classList.add('was-validated');
+                    //Đối số thứ 3 false tức là không ưu tiên
                 }, false);
             });
         }, false);
