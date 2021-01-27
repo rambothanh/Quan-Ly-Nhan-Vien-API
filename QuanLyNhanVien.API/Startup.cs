@@ -24,7 +24,7 @@ namespace QuanLyNhanVien.API
             services.AddControllers();
 
             var connection = this.config.GetConnectionString("employeemanagerDB");
-            services.AddDbContextPool<AppDbContext>(options => options.UseMySQL(connection));
+            services.AddDbContextPool<AppDbContext>(options => options.UseSqlite(connection));
         }
 
         // This method gets called by the runtime. Use this method to configure the HTTP request pipeline.

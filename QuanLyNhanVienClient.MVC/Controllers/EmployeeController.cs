@@ -19,6 +19,12 @@ namespace QuanLyNhanVienClient.MVC.Controllers
             this.employeesApiUrl = config.GetValue<string>("AppSettings:EmployeesApiUrl");
         }
 
+        //public IActionResult ConfirmDeleteAsync(int id)
+        //{
+
+        //}
+
+
         //Click vào nút sửa ở từng nhân viên sẽ chuyển đến trang Update
         // /employee/update/{id}
         [HttpGet]
